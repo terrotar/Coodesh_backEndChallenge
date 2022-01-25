@@ -17,4 +17,4 @@ space_flight = httpx.get('https://api.spaceflightnewsapi.net/v3/documentation')
 # Article by ID
 @router.get('articles/{article_id}')
 async def get_article_by_id(article_id: int):
-    print(space_flight.text)
+    pass

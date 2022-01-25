@@ -4,7 +4,14 @@
 # FastAPI
 from fastapi import FastAPI
 # Routers
-from app.routers import article
+from .routers import article
+# Database
+from .database import models
+from .database.database import engine
+
+
+# Create tables mapped by ORM inside models
+models.Base.metadata.create_all(bind=engine)
 
 
 # FastAPI instance
