@@ -1,4 +1,4 @@
-from sqlalchemy import ARRAY, Boolean, Column, Date, Integer, String
+from sqlalchemy import ARRAY, Boolean, Column, Date, Integer, String, DateTime
 # from sqlalchemy.orm import relationship
 
 from sqlalchemy.dialects.postgresql import JSON
@@ -16,7 +16,7 @@ class Article(Base):
     imageUrl = Column('ImageUrl', String)
     newsSite = Column('NewsSite', String, default='')
     summary = Column('Summary', String, default='')
-    publishedAt = Column('PublishedAt', Date)
+    publishedAt = Column('PublishedAt', DateTime)
     launches = Column('Launches', JSON, default='')
     events = Column('Events', JSON, default='')
     # events = Column('Events', ARRAY(String), default='')

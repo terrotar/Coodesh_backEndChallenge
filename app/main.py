@@ -7,7 +7,7 @@ from fastapi import FastAPI
 # Routers
 from .routers import article
 
-# Database
+# Database/Schemas
 from .database import models
 from .database.database import engine
 

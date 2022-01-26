@@ -1,9 +1,15 @@
 
+
+# Pydantic Schemas
+from ..database import schemas
+from typing import Optional
+
+# Session
 from sqlalchemy.orm import Session
+import httpx
+
 # Class Article
 from ..database import models
-
-import httpx
 
 
 # Get Total number of Articles in API
@@ -24,13 +30,13 @@ def generator_articles(total_articles: int):
 
 
 # Update Database with Article Generator
-def update_articles(db: Session, all_articles, qtd_articles):
+def update_articles(db: Session, all_articles: dict, qtd_articles: int):
 
     for article in range(0, qtd_articles):
         article = next(all_articles)
-        # print(article['featured'])
+        # print(type(article['publishedAt']))
 
-        check_article = db.query(models.Article).filter_by(title=article['title']).first()
+        check_article = db.query(models.Article).filter(models.Article.title == article['title']).first()
         if not check_article:
 
             new_article = models.Article(
@@ -47,6 +53,7 @@ def update_articles(db: Session, all_articles, qtd_articles):
 
             db.add(new_article)
             db.commit()
+            db.refresh(new_article)
 
         else:
             pass
