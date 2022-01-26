@@ -27,7 +27,7 @@ async def create_article(obj: schemas.ArticleCreate, db: Session = Depends(datab
 
     if db_article is not None:
         raise HTTPException(status_code=404,
-                            detail=f'Article already created\n{e}')
+                            detail='Article with the same title has already been created')
 
     return article.add_article(obj, db)
 

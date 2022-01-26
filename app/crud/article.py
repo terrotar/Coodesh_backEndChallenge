@@ -34,6 +34,23 @@ def add_article(article: schemas.ArticleCreate, db: Session):
     return new_article
 
 
+# PUT
+'''
+# Update an Article by ID
+def update_article(id: int, article: schemas.Article, db: Session):
+
+    article = get_article_by_id(article.id, db)
+    
+    if article is not None:
+        article.
+
+
+        product.name = product_name
+        db.commit()
+        db.refresh(product)
+        return product
+'''
+
 # GET
 
 # Article by Title
