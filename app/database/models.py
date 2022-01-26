@@ -1,6 +1,8 @@
 from sqlalchemy import ARRAY, Boolean, Column, Date, Integer, String
 # from sqlalchemy.orm import relationship
 
+from sqlalchemy.dialects.postgresql import JSON
+
 from .database import Base
 
 
@@ -9,20 +11,23 @@ class Article(Base):
 
     id = Column('ID', Integer, primary_key=True, index=True)
     featured = Column('Featured', Boolean, default=False)
-    title = Column('Title', String(200), unique=True, index=True)
-    url = Column('Url', String(200), unique=True)
-    imageUrl = Column('ImageUrl', String(200))
-    newSite = Column('NewSite', String(200))
-    summary = Column('Summary', String(500))
+    title = Column('Title', String, unique=True, index=True)
+    url = Column('Url', String)
+    imageUrl = Column('ImageUrl', String)
+    newsSite = Column('NewsSite', String, default='')
+    summary = Column('Summary', String, default='')
     publishedAt = Column('PublishedAt', Date)
-    launches = Column('Launches', ARRAY(Integer))
+    launches = Column('Launches', JSON, default='')
+    events = Column('Events', JSON, default='')
+    # events = Column('Events', ARRAY(String), default='')
 
-    def __init__(self, featured, title, url, imageUrl, newSite, summary, publishedAt, launches):
+    def __init__(self, featured, title, url, imageUrl, newsSite, summary, publishedAt, launches, events):
         self.title = title
         self.featured = featured
         self.url = url
         self.imageUrl = imageUrl
-        self.newSite = newSite
+        self.newsSite = newsSite
         self.summary = summary
         self.publishedAt = publishedAt
         self.launches = launches
+        self.events = events
