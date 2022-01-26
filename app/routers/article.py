@@ -37,8 +37,20 @@ async def update_database(db: Session = Depends(database.get_db)):
 @router.get('/{id}', response_model=schemas.Article)
 async def article_by_id(id: int, db: Session = Depends(database.get_db)):
 
-    obj = article.get_article_by_id(db, id)
+    obj = article.get_article_by_id(id, db)
     if obj:
+        return obj
+
+    raise HTTPException(status_code=404, detail=f"Article {id} not found")
+
+
+# Delete Article
+@router.delete('/{id}', response_model=schemas.Article)
+async def delete_article(id: int, db: Session = Depends(database.get_db)):
+
+    obj = article.get_article_by_id(id, db)
+    if obj:
+        obj = article.delete_article(id, db)
         return obj
 
     raise HTTPException(status_code=404, detail=f"Article {id} not found")
