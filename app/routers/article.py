@@ -17,6 +17,21 @@ router = APIRouter(tags=['Article'],
                    prefix='/articles')
 
 
+# POST
+
+# Add Article
+@router.post('/', response_model=schemas.Article)
+async def create_article(obj: schemas.ArticleCreate, db: Session = Depends(database.get_db)):
+
+    db_article = article.get_article_by_title(obj.title, db)
+
+    if db_article is not None:
+        raise HTTPException(status_code=404,
+                            detail=f'Article already created\n{e}')
+
+    return article.add_article(obj, db)
+
+
 # GET
 
 
@@ -28,7 +43,9 @@ async def update_database(db: Session = Depends(database.get_db)):
     try:
         article_gen.update_articles(db, all_articles, qtd_articles)
     except Exception as e:
-        print(f'Failed to update database\n{e}')
+        # print(f'Failed to update database\n{e}')
+        raise HTTPException(status_code=404,
+                            detail=f'Failed to update database\n{e}')
     finally:
         return 'Database updated with Space Flight News API Articles.'
 
@@ -38,10 +55,11 @@ async def update_database(db: Session = Depends(database.get_db)):
 async def article_by_id(id: int, db: Session = Depends(database.get_db)):
 
     obj = article.get_article_by_id(id, db)
-    if obj:
+    if obj is not None:
         return obj
 
-    raise HTTPException(status_code=404, detail=f"Article {id} not found")
+    raise HTTPException(status_code=404,
+                        detail=f"Article {id} not found")
 
 
 # Delete Article
@@ -49,8 +67,9 @@ async def article_by_id(id: int, db: Session = Depends(database.get_db)):
 async def delete_article(id: int, db: Session = Depends(database.get_db)):
 
     obj = article.get_article_by_id(id, db)
-    if obj:
+    if obj is not None:
         obj = article.delete_article(id, db)
         return obj
 
-    raise HTTPException(status_code=404, detail=f"Article {id} not found")
+    raise HTTPException(status_code=404,
+                        detail=f"Article {id} not found")

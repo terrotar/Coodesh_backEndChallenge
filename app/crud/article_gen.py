@@ -37,7 +37,7 @@ def update_articles(db: Session, all_articles: dict, qtd_articles: int):
         # print(type(article['publishedAt']))
 
         check_article = db.query(models.Article).filter(models.Article.title == article['title']).first()
-        if not check_article:
+        if check_article is None:
 
             new_article = models.Article(
                 featured=article['featured'],
