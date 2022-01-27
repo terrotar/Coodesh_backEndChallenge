@@ -3,7 +3,7 @@
 from fastapi import APIRouter, Depends, HTTPException
 
 # Database and Model
-from ..database import database, schemas
+from ..database import database, schemas, models
 
 # Session
 from sqlalchemy.orm import Session
@@ -30,6 +30,47 @@ async def create_article(obj: schemas.ArticleCreate, db: Session = Depends(datab
                             detail='Article with the same title has already been created')
 
     return article.add_article(obj, db)
+
+
+# PUT
+
+
+# Update Article
+@router.put('/{id}')
+async def update_article(id: int, obj: schemas.ArticleCreate, db: Session = Depends(database.get_db)):
+
+    db_article = article.get_article_by_id(id, db)
+    if db_article is not None:
+        try:
+            # obj --> data to be updated
+            # db_article --> article in database to be updated
+
+            # Checks duplicate title in database
+            check_title = article.get_article_by_title(obj.title, db)
+            if check_title is None:
+
+                db_article.featured = obj.featured
+                db_article.title = obj.title
+                db_article.url = obj.url
+                db_article.imageUrl = obj.imageUrl
+                db_article.newsSite = obj.newsSite
+                db_article.summary = obj.summary
+                db_article.publishedAt = obj.publishedAt
+                db_article.launches = obj.launches
+                db_article.events = obj.events
+
+                db.commit()
+                db.refresh(db_article)
+
+                return db_article
+            else:
+                return f'Already exists Article with title {obj.title}'
+        except Exception as e:
+            raise HTTPException(status_code=404,
+                                detail=f'{e}')
+
+    raise HTTPException(status_code=404,
+                        detail=f'Article {id} not found')
 
 
 # GET
@@ -60,6 +101,9 @@ async def article_by_id(id: int, db: Session = Depends(database.get_db)):
 
     raise HTTPException(status_code=404,
                         detail=f"Article {id} not found")
+
+
+# DELETE
 
 
 # Delete Article
