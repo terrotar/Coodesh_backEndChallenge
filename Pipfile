@@ -8,6 +8,7 @@ fastapi = {extras = ["all"], version = "*"}
 httpx = "*"
 sqlalchemy = "*"
 psycopg2-binary = "*"
+fastapi-pagination = {extras = ["all"], version = "*"}
 
 [dev-packages]
 

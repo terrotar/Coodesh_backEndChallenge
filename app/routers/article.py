@@ -11,6 +11,9 @@ from sqlalchemy.orm import Session
 # Article Generator
 from ..crud import article_gen, article
 
+# Pagination
+from fastapi_pagination import Page, Params, paginate
+
 
 # Article Router
 router = APIRouter(tags=['Article'],
@@ -74,6 +77,12 @@ async def update_article(id: int, obj: schemas.ArticleCreate, db: Session = Depe
 
 
 # GET
+
+
+# Read All Database Articles
+@router.get('/', response_model=Page[schemas.Article])
+async def read_articles(params: Params = Depends(), db: Session = Depends(database.get_db)):
+    return paginate(article.all_articles(db), params)
 
 
 # Update Database with Space Flight News API

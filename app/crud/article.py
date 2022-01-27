@@ -47,6 +47,11 @@ def get_article_by_id(id: int, db: Session):
     return db.query(models.Article).filter(models.Article.id == id).first()
 
 
+# All Database Articles
+def all_articles(db: Session):
+    return db.query(models.Article).all()
+
+
 # DELETE
 
 
