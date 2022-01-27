@@ -11,11 +11,16 @@
 
 - [GET]/articles/{id}: Obter a informação somente de um artigo
 
-    PROGRESS
+    OK
 
 - [POST]/articles/: Adicionar um novo artigo
 
+    OK
+
 - [PUT]/articles/{id}: Atualizar um artigo baseado no id
+
+    PROGRESS
 
 - [DELETE]/articles/{id}: Remover um artigo baseado no id
 
+    OK
