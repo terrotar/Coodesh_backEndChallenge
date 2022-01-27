@@ -9,6 +9,7 @@ httpx = "*"
 sqlalchemy = "*"
 psycopg2-binary = "*"
 fastapi-pagination = {extras = ["all"], version = "*"}
+pytest = "*"
 
 [dev-packages]
 
