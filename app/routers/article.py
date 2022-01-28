@@ -124,5 +124,5 @@ async def delete_article(id: int, db: Session = Depends(database.get_db)):
         obj = article.delete_article(id, db)
         return obj
 
-    raise HTTPException(status_code=404,
+    raise HTTPException(status_code=400,
                         detail=f"Article {id} not found")

@@ -184,20 +184,32 @@ def test_post_article_invalid_title():
 
     response = client.post(url, json=test_article)
 
-    
-    # assert response.status_code == 200
+    response = client.post(url, json=test_article)
+
+    assert response.status_code == 404
 
 
 # DELETE
 
 
 # /articles/{id}
+
+# Success
 def test_delete_article():
     id = random.randint(1, 10000)
     url = f'http://127.0.0.1:8000/articles/{id}'
     response = client.delete(url)
 
     assert response.status_code == 200
+
+
+# Invalid ID
+def test_delete_article_invalid_id():
+    id = random.randint(1000000000, 99999999999)
+    url = f'http://127.0.0.1:8000/articles/{id}'
+    response = client.delete(url)
+
+    assert response.status_code == 400
 
 
 # UPDATE DATABASE
