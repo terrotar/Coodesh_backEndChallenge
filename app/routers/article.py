@@ -3,7 +3,7 @@
 from fastapi import APIRouter, Depends, HTTPException
 
 # Database and Model
-from ..database import database, schemas, models
+from ..database import database, schemas
 
 # Session
 from sqlalchemy.orm import Session
