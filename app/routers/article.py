@@ -69,7 +69,7 @@ async def update_article(id: int, obj: schemas.ArticleCreate, db: Session = Depe
             else:
                 return f'Already exists Article with title {obj.title}'
         except Exception as e:
-            raise HTTPException(status_code=404,
+            raise HTTPException(status_code=400,
                                 detail=f'{e}')
 
     raise HTTPException(status_code=404,
