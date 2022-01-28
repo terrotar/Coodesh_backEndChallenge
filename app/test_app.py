@@ -31,7 +31,7 @@ def test_get_root():
 
 # /articles
 def test_get_articles():
-    url = f'{host}/articles/'
+    url = f'{host}/articles'
     response = client.get(url)
 
     assert 'items' in response.text
