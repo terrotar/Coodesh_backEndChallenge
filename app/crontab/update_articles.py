@@ -20,4 +20,4 @@ async def cron_update_articles(url):
 
 if __name__ == '__main__':
 
-    asyncio.run(cron_update_articles('http://127.0.0.1:8000/articles/update'))
+    asyncio.run(cron_update_articles('http://127.0.0.1:5000/articles/update'))
