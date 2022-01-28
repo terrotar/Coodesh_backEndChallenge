@@ -40,6 +40,7 @@
 
 ### Diferencial 1 Configurar Docker no Projeto para facilitar o Deploy da equipe de DevOps;
 
+    PROGRESS
 
 
 ### Diferencial 2 Configurar um sistema de alerta se houver algum falha durante a sincronização dos artigos;
@@ -52,3 +53,4 @@
 
 ### Diferencial 4 Escrever Unit Tests para os endpoints da API;
 
+    OK
