@@ -1,1 +1,1 @@
-*/1 * * * * /app/crontab/update_articles.py
+*/1 * * * * /app/crontab/update_articles.py > app/crontab/log.txt

@@ -21,3 +21,4 @@ async def cron_update_articles(url):
 if __name__ == '__main__':
 
     asyncio.run(cron_update_articles('http://0.0.0.0:5000/articles/update'))
+    print('Database updated successfully')
