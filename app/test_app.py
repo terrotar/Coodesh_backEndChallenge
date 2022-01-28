@@ -12,6 +12,9 @@ import string
 client = TestClient(api)
 
 
+host = 'http://0.0.0.0:5000'
+
+
 # ROUTES
 
 
@@ -20,7 +23,7 @@ client = TestClient(api)
 
 # /
 def test_get_root():
-    url = 'http://127.0.0.1:8000/'
+    url = f'{host}/'
     response = client.get(url)
 
     assert response.text == '"Back-end Challenge 2021 🏅 - Space Flight News"'
@@ -28,7 +31,7 @@ def test_get_root():
 
 # /articles
 def test_get_articles():
-    url = 'http://127.0.0.1:8000/articles/'
+    url = f'{host}/articles/'
     response = client.get(url)
 
     assert 'items' in response.text
@@ -37,7 +40,7 @@ def test_get_articles():
 # /articles/{id}
 def test_get_article_by_id():
     id = random.randint(1, 10000)
-    url = f'http://127.0.0.1:8000/articles/{id}'
+    url = f'{host}/articles/{id}'
     response = client.get(url)
 
     assert response.status_code == 200
@@ -56,7 +59,7 @@ def test_put_article():
     letters = string.ascii_lowercase
     title_generator = ''.join(random.choice(letters) for i in range(10))
 
-    url = f'http://127.0.0.1:8000/articles/{id}'
+    url = f'{host}/articles/{id}'
     test_article = {
         "featured": True,
         "title": f"{title_generator}",
@@ -82,7 +85,7 @@ def test_put_article_invalid_id():
     letters = string.ascii_lowercase
     title_generator = ''.join(random.choice(letters) for i in range(10))
 
-    url = f'http://127.0.0.1:8000/articles/{id}'
+    url = f'{host}/articles/{id}'
     test_article = {
         "featured": True,
         "title": f"{title_generator}",
@@ -109,7 +112,7 @@ def test_put_article_invalid_title():
     letters = string.ascii_lowercase
     title_generator = ''.join(random.choice(letters) for i in range(10))
 
-    url = f'http://127.0.0.1:8000/articles/{id}'
+    url = f'{host}/articles/{id}'
     test_article = {
         "featured": True,
         "title": f"{title_generator}",
@@ -129,7 +132,7 @@ def test_put_article_invalid_title():
 
         id = random.randint(1, 10000)
 
-        url = f'http://127.0.0.1:8000/articles/{id}'
+        url = f'{host}/articles/{id}'
 
         response = client.put(url, json=test_article)
 
@@ -146,7 +149,7 @@ def test_post_article():
     letters = string.ascii_lowercase
     title_generator = ''.join(random.choice(letters) for i in range(10))
 
-    url = 'http://127.0.0.1:8000/articles/'
+    url = f'{host}/articles/'
     test_article = {
         "featured": True,
         "title": f"{title_generator}",
@@ -169,7 +172,7 @@ def test_post_article_invalid_title():
     letters = string.ascii_lowercase
     title_generator = ''.join(random.choice(letters) for i in range(10))
 
-    url = 'http://127.0.0.1:8000/articles/'
+    url = f'{host}/articles/'
     test_article = {
         "featured": True,
         "title": f"{title_generator}",
@@ -197,7 +200,7 @@ def test_post_article_invalid_title():
 # Success
 def test_delete_article():
     id = random.randint(1, 10000)
-    url = f'http://127.0.0.1:8000/articles/{id}'
+    url = f'{host}/articles/{id}'
     response = client.delete(url)
 
     assert response.status_code == 200
@@ -206,7 +209,7 @@ def test_delete_article():
 # Invalid ID
 def test_delete_article_invalid_id():
     id = random.randint(1000000000, 99999999999)
-    url = f'http://127.0.0.1:8000/articles/{id}'
+    url = f'{host}/articles/{id}'
     response = client.delete(url)
 
     assert response.status_code == 400
@@ -217,7 +220,7 @@ def test_delete_article_invalid_id():
 
 # /articles/update
 def test_update_database():
-    url = 'http://127.0.0.1:8000/articles/update/'
+    url = f'{host}/articles/update/'
     response = client.get(url)
 
     assert response.status_code == 200
